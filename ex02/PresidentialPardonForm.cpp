@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "PresidentialPardonForm.hpp"
 #include "Form.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(){
+PresidentialPardonForm::PresidentialPardonForm(std::string target) :Form("PresidentialPardonForm", 25, 5 ), _target(target){
 	return;
 }
 
@@ -29,4 +30,8 @@ PresidentialPardonForm const &		PresidentialPardonForm::operator=(PresidentialPa
 	/*create copy function here*/
 	(void)src;
 	return *this;
+}
+
+void		PresidentialPardonForm::action() const{
+	std::cout << this->_target  << " is pardonned by Zafod Beeblebrox" << std::endl;
 }

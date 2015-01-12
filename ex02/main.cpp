@@ -12,27 +12,41 @@
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
 int main(){
-	Form		f;
-	Form		f2("sick note", 150, 150);
-	Form		f3("winning lotto ticket", 40, 40);
-	Form		f4("launch nuclear warhead paper", 1, 1);
+	RobotomyRequestForm	r("foo");
+	PresidentialPardonForm p;
+	ShrubberyCreationForm s;
 	Bureaucrat	b;
-	b.signForm(f);
-	b.signForm(f2);
-	b.signForm(f3);
-	b.signForm(f4);
-	std::cout << "setting"<< b << "to 39" << std::endl;
-	b.setGrade(39);
-	b.signForm(f);
-	b.signForm(f2);
-	b.signForm(f3);
-	b.signForm(f4);
+	b.setGrade(60);
+	b.executeForm(r);
+	b.executeForm(p);
+	b.executeForm(s);
+	b.signForm(p);
+	b.signForm(r);
+	b.signForm(s);
+	p.execute(b);
+	r.execute(b);
+	r.execute(b);
+	r.execute(b);
+	r.execute(b);
+	s.execute(b);
 	b.setGrade(1);
-	b.signForm(f);
-	b.signForm(f2);
-	b.signForm(f3);
-	b.signForm(f4);
+	b.signForm(p);
+	b.signForm(r);
+	b.signForm(s);
+	p.execute(b);
+	r.execute(b);
+	r.execute(b);
+	r.execute(b);
+	r.execute(b);
+	s.execute(b);
+
+	b.executeForm(r);
+	b.executeForm(p);
+	b.executeForm(s);
 	return 0;
 }

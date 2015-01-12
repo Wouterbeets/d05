@@ -15,7 +15,6 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-
 Bureaucrat::Bureaucrat( std::string name, int grade) :_name(name) {	
 	this->setGrade(grade);
 	return;
@@ -103,6 +102,15 @@ void				Bureaucrat::incGrade( void ){
 	this->setGrade(this->getGrade() - 1);
 }
 
+void				Bureaucrat::executeForm(Form const & form) {
+	try{
+		form.beExecuted(*this);
+		std::cout << *this << " and  executes" << form << std::endl;
+	} catch (Bureaucrat::GradeTooLowException e) {
+		std::cout <<  *this << " and cannot execite " << form << " because: " << e.what() << std::endl;
+	}
+}
+
 void				Bureaucrat::signForm(Form & f) {
 	try{
 		f.beSigned(*this);
@@ -111,3 +119,4 @@ void				Bureaucrat::signForm(Form & f) {
 		std::cout <<  *this << " and cannot sign " << f << " because: " << e.what() << std::endl;
 	}
 }
+

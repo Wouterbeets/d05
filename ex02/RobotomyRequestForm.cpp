@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "RobotomyRequestForm.hpp"
 #include "Form.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(){
+RobotomyRequestForm::RobotomyRequestForm(std::string target) :Form("RobotomyRequestForm", 72, 45), _target(target) {
 	return;
 }
 
@@ -21,12 +22,27 @@ RobotomyRequestForm::~RobotomyRequestForm(){
 	return;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const & src){
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const & src) :Form("RobotomyRequestForm", 72, 45){
 	*this = src;
 }
 
 RobotomyRequestForm const &		RobotomyRequestForm::operator=(RobotomyRequestForm const & src){
-	/*create copy function here*/
 	(void)src;
+	*this = RobotomyRequestForm(src.getTarget());
 	return *this;
+}
+
+std::string const	RobotomyRequestForm::getTarget() const{
+	return this->_target;
+}
+
+void		RobotomyRequestForm::action() const{
+	static bool succes = false;
+	if (succes){
+		succes = false;
+		std::cout << "*BBBZZT* * BGGGRING* *GHHZZT* *BFFVVVFT* " << this->_target << " is succesfully Robotomized" << std::endl;
+	} else {
+		succes = true;
+		std::cout << "failure" << std::endl;
+	}
 }

@@ -20,29 +20,34 @@ class Form
 		Form(std::string name = "Copy of Copy of Untiteld2.docx", int reqGradeSign = 1, int reqGradeExec = 1);
 		virtual ~Form();
 		Form(Form const & src);
-		Form const &		operator=(Form const & i);
+
 		class GradeTooLowException : public std::exception {
 			public:
-				GradeTooLowException( void );
-				~GradeTooLowException( void ) throw();
-				const char* what() const throw();
-				GradeTooLowException const &	operator=( GradeTooLowException const & src);
+							GradeTooLowException( void );
+							~GradeTooLowException( void ) throw();
+							const char* what() const throw();
+							GradeTooLowException const &	operator=( GradeTooLowException const & src);
 		};
+
 		class GradeTooHighException : public std::exception {
 			public:
-				GradeTooHighException( void );
-				~GradeTooHighException( void ) throw();
-				const char* what() const throw();
-				GradeTooHighException const &	operator=( GradeTooHighException const & src);
+							GradeTooHighException( void );
+							~GradeTooHighException( void ) throw();
+							const char* what() const throw();
+							GradeTooHighException const &	operator=( GradeTooHighException const & src);
 		};
 
-		std::string		getName( void ) const;
-		bool			getSigned( void ) const;
-		int				getReqGradeSign( void ) const;
-		int				getReqGradeExec( void ) const;
-		void			beSigned(Bureaucrat const & b);
+		std::string			getName( void ) const;
+		bool				getSigned( void ) const;
+		int					getReqGradeSign( void ) const;
+		int					getReqGradeExec( void ) const;
+		void				beSigned(Bureaucrat const & b);
+		void				beExecuted(Bureaucrat const & b) const;
 
+		void				execute(Bureaucrat const & b);
+		virtual void		action() const = 0;
 	private:
+		Form const &		operator=(Form const & i);
 		std::string const	_name;
 		bool				_signed;
 		int const			_reqGradeSign;

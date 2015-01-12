@@ -15,15 +15,17 @@
 
 #include "Form.hpp"
 
-class ShrubberyCreationForm
+class ShrubberyCreationForm : public Form
 {
 	public:
-		ShrubberyCreationForm();
+		ShrubberyCreationForm(std::string target = "Forrest of the knights who say 'Ni'");
 		virtual ~ShrubberyCreationForm();
 		ShrubberyCreationForm(ShrubberyCreationForm const & src);
 		ShrubberyCreationForm const &		operator=(ShrubberyCreationForm const & i);
-
+		void		action() const;
+		
 	private:
+		std::string const	 _target;
 		/* data */
 	};
 #endif /*SHRUBBERYcREATIONfORM_HPP*/

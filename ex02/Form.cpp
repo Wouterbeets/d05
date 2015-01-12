@@ -37,14 +37,10 @@ Form::Form(Form const & src)
 	_reqGradeExec(src.getReqGradeExec()) {
 }
 
-Form  const &		Form::operator=(Form const & i){
+//Form  const &		Form::operator=(Form const & i){
 	/*create copy function here*/
-	Form	n(	i.getName(),
-				i.getReqGradeSign(),
-				i.getReqGradeExec());
-	*this = n;
-	return *this;
-}
+//	return *this;
+//}
 
 std::string		Form::getName( void ) const{
 	return this->_name;
@@ -65,6 +61,14 @@ int				Form::getReqGradeExec( void ) const {
 std::ostream &		operator<<(std::ostream & o, Form const & i){
 	std::cout << i.getName() << " where signed is:" << i.getSigned() << " and the required grade to sign is :" << i.getReqGradeSign() << " and the required grade to execute is :" << i.getReqGradeExec();
 	return o;
+}
+
+void		Form::beExecuted(Bureaucrat const & b) const {
+	if (b.getGrade() > this->_reqGradeExec){
+		throw(Bureaucrat::GradeTooLowException());
+	} else {
+		this->action();
+	}
 }
 
 void		Form::beSigned(Bureaucrat const & b){
@@ -108,4 +112,15 @@ Form::GradeTooHighException const &	Form::GradeTooHighException::operator=( Grad
 	return src;
 }
 
+void		Form::execute(Bureaucrat const & b){
+	if (this->_signed){
+		try{
+			this->beExecuted(b);
+		}catch (Bureaucrat::GradeTooLowException e){
+			std::cout <<  b << " and can't execute " << *this << " because: " << e.what() << std::endl;
+		}		
+	} else {
+		std::cout <<  b << " and  can't execute " << *this << " because: Form is not signed "<< std::endl;
+	}
+}	
 

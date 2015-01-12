@@ -17,13 +17,14 @@
 class PresidentialPardonForm : public Form
 {
 	public:
-		PresidentialPardonForm();
+		PresidentialPardonForm(std::string target = "");
 		virtual ~PresidentialPardonForm();
 		PresidentialPardonForm(PresidentialPardonForm const & src);
 		PresidentialPardonForm const &		operator=(PresidentialPardonForm const & i);
+		void		action() const;
 
 	private:
-		/* data */
+		std::string const	 _target;
 	};
 
 #endif /*PRESIDENTIALpARDONfORM_HPP*/
