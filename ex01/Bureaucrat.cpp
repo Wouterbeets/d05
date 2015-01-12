@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include <iostream>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 
 Bureaucrat::Bureaucrat( std::string name, int grade) :_name(name) {	
@@ -34,7 +36,7 @@ Bureaucrat const &		Bureaucrat::operator=( Bureaucrat const & src) {
 }
 
 std::ostream &			operator<<( std::ostream & o, Bureaucrat const & i){
-	std::cout << i.getName() << " has a grade of " << i.getGrade() << std::endl;
+	std::cout << i.getName() << " has a grade of " << i.getGrade();
 	return o;
 }
 
@@ -60,7 +62,7 @@ void				Bureaucrat::setGrade( int i){
 //TOO HIGH
 
 const char*  Bureaucrat::GradeTooHighException::what() const  throw(){
-	return "grade too high!";
+	return "Bureaucrats grade is too high";
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(){
@@ -78,7 +80,7 @@ Bureaucrat::GradeTooHighException const &	Bureaucrat::GradeTooHighException::ope
 
 // TOO LOOOOOOW
 const char*  Bureaucrat::GradeTooLowException::what() const  throw(){
-	return "grade too low!";
+	return "Bureaucrats grade is too low";
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(){
@@ -101,4 +103,11 @@ void				Bureaucrat::incGrade( void ){
 	this->setGrade(this->getGrade() - 1);
 }
 
-
+void				Bureaucrat::signForm(Form & f) {
+	try{
+		f.beSigned(*this);
+		std::cout << *this << " and signs " << f << std::endl;
+	} catch (Bureaucrat::GradeTooLowException e) {
+		std::cout <<  *this << " and cannot sign " << f << " because: " << e.what() << std::endl;
+	}
+}
